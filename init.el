@@ -67,7 +67,10 @@
  ((string= (system-name) "DANIEL-LAPTOP")
   (setq initial-frame-alist '((top . 0) (left . 0) (width . 267) (height . 67))))
  ((string= (system-name) "DGALLAGHER-PC")
-  (setq initial-frame-alist '((top . 0) (left . 0) (width . 267) (height . 78)))))
+  (setq initial-frame-alist '((top . 0) (left . 0) (width . 267) (height . 78))))
+ ((string= (system-name) "tmlsdev-laptop")
+  (setq initial-frame-alist '((top . 0) (left . 0) (width . 267) (height . 80)))
+  (set-face-attribute 'default nil :foundry "unknown" :family "Ubuntu Mono" :height 220)))
 (toggle-uniquify-buffer-names)
 
 ; Package management
