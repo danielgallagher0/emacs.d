@@ -1,0 +1,41 @@
+(defun multiply-hours (factor hours)
+  (mapcar #'(lambda (elt)
+              (cons (car elt)
+                    (* factor (cdr elt))))
+          hours))
+
+(defun weights-to-hours (weights hours)
+  (multiply-hours hours weights))
+
+(defun sum-hours (hours)
+  (reduce #'+ (mapcar #'cdr hours)))
+
+(defun get-hours (project hours)
+  (or (cdr (assoc project hours)) 0.0))
+
+(defun drain-hours (goals spent)
+  (mapcar #'(lambda (elt)
+              (cons (car elt)
+                    (max 0.0 (- (cdr elt) (get-hours (car elt) spent)))))
+          goals))
+
+(defun remaining-hours (hours weights spent-hours)
+  (let* ((goal-hours (weights-to-hours weights hours))
+         (rest-hours (- hours (sum-hours spent-hours)))
+         (remaining-goals (drain-hours goal-hours spent-hours))
+         (remaining-goal-hours (sum-hours remaining-goals))
+         (adjustment-factor (/ rest-hours remaining-goal-hours)))
+    (multiply-hours adjustment-factor remaining-goals)))
+
+(defun to-hours (hours minutes &rest rest)
+  (if (and rest (car rest))
+      (+ (to-hours hours minutes) (to-hours (car rest) (cadr rest) (cddr rest)))
+    (+ hours (/ minutes 60.0))))
+
+(let ((hours 40.0)
+      (weights (list (cons 'amo 0.6) (cons 'tmls 0.4)))
+      (spent-hours (list (cons 219 (to-hours 1 25 1 16))
+                         (cons 'amo (to-hours 16 35 1 19))
+                         (cons 'lynx (to-hours 1 57))
+                         (cons 'tmls (to-hours 3 19)))))
+  (remaining-hours hours weights spent-hours))
