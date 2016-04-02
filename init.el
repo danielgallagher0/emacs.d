@@ -136,6 +136,7 @@
 (autoload 'qproperty-write "code-editing" "Construct a setter declaration from a Q_PROPERTY declaration" t)
 (autoload 'qproperty-notify "code-editing" "Construct a signal declaration from a Q_PROPERTY declaration" t)
 (autoload 'qproperty-member "code-editing" "Construct a member declaration from a Q_PROPERTY declaration" t)
+(autoload 'insert-test-header "code-editing" "Insert a skeleton test header" t)
 (autoload 'to-display-set-definition "omc")
 (autoload 'insert-enum-value "omc")
 (autoload 'insert-omc-header-copyright "omc" "Insert the Optimedica copyright text for headers at the beginning of the buffer" t)
@@ -145,6 +146,7 @@
 (autoload 'insert-amo-copyright "copyright" "Insert the Abbot copyright text at the beginning of the buffer" t)
 (autoload 'fire-and-forget-todo "todo")
 (autoload 'structure-wizard "structure" "Wizard tool to create structure files")
+(autoload 'struct-fn "struct/all-structs" "Code generator for POD structures and helper functions")
 (load "banner")
 (load "utilities")
 
