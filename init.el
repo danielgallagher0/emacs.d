@@ -70,6 +70,7 @@
   (setq initial-frame-alist '((top . 0) (left . 0) (width . 267) (height . 78))))
  ((string= (system-name) "tmlsdev-laptop")
   (setq initial-frame-alist '((top . 0) (left . 0) (width . 267) (height . 80)))
+  (setq compile-command "make -k -j 32")
   (set-face-attribute 'default nil :foundry "unknown" :family "Ubuntu Mono" :height 220)))
 (toggle-uniquify-buffer-names)
 
