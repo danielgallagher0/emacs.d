@@ -460,6 +460,7 @@ private slots:
 
 (defun cpp-parameters ()
   (save-excursion
+    (c-beginning-of-defun)
     (let ((start (search-forward "(")))
       (search-forward-regexp "{\\|;")
       (let ((end (search-backward ")")))
@@ -503,3 +504,11 @@ private slots:
 (defun cpp-record-call (recorder module)
   (interactive "sRecorder variable: \nsModule string: ")
   (cpp-record-call-impl (concat recorder ".") module))
+
+(defun insert-cpp-parameter-list ()
+  (interactive)
+  (let ((params (remove-if-not #'car (cpp-parameters))))
+    (if (= (length params) 0)
+        (insert "")
+      (insert (reduce #'(lambda (a n) (concat a ", " n))
+                      (mapcar #'car params))))))
