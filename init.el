@@ -151,6 +151,8 @@
 (autoload 'fire-and-forget-todo "todo")
 (autoload 'structure-wizard "structure" "Wizard tool to create structure files" t)
 (autoload 'struct-fn "struct/all-structs" "Code generator for POD structures and helper functions" t)
+(autoload 'enum-fn "struct/all-structs" "Code generator for enums and helper functions" t)
+(autoload 'align-switch "code-editing" "Align a simple switch case with single-line cases" t)
 (load "banner")
 (load "utilities")
 

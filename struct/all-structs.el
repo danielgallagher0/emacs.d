@@ -4,6 +4,7 @@
 (load "struct/enum")
 (load "struct/enum-declaration")
 (load "struct/enum-to-string")
+(load "struct/enum-test-to-string")
 (load "struct/struct-declaration")
 (load "struct/struct-default-ctor")
 (load "struct/struct-field-ctor")
