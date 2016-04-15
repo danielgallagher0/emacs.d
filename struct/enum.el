@@ -11,6 +11,10 @@
   (let ((value (nth n (enum-values e))))
     (format "%s_%s" (value-prefix e) (cpp-upcase (symbol-name (car value))))))
 
+(defmethod enum-class-value ((e enum-type) n)
+  (let ((value (nth n (enum-values e))))
+    (format "%s::%s" (cpp-name e) (cpp-upcase (symbol-name (car value))))))
+
 (defmethod primitive-default-value ((e enum-type))
   (enum-value e 0))
 
