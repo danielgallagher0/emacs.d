@@ -148,8 +148,8 @@
 (autoload 'insert-lynx-copyright "copyright" "Insert the Lynx copyright text at the beginning of the buffer" t)
 (autoload 'insert-amo-copyright "copyright" "Insert the Abbot copyright text at the beginning of the buffer" t)
 (autoload 'fire-and-forget-todo "todo")
-(autoload 'structure-wizard "structure" "Wizard tool to create structure files")
-(autoload 'struct-fn "struct/all-structs" "Code generator for POD structures and helper functions")
+(autoload 'structure-wizard "structure" "Wizard tool to create structure files" t)
+(autoload 'struct-fn "struct/all-structs" "Code generator for POD structures and helper functions" t)
 (load "banner")
 (load "utilities")
 
@@ -253,6 +253,25 @@
                             auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.go" . go-mode)
                             auto-mode-alist))
+
+;; Fake UUID generator
+(random t)
+(defun insert-random-uuid ()
+  "Insert a random UUID.
+Example of a UUID: 1df63142-a513-c850-31a3-535fc3520c3d
+
+WARNING: this is a simple implementation. The chance of generating the same UUID is much higher than a robust algorithm.."
+  (interactive)
+  (insert
+   (format "{%04x%04x-%04x-4%03x-%01x%03x-%06x%06x}"
+           (random (expt 16 4))
+           (random (expt 16 4))
+           (random (expt 16 4))
+           (random (expt 16 3))
+           (+ 8 (random 4))
+           (random (expt 16 3))
+           (random (expt 16 6))
+           (random (expt 16 6)))))
 
 ; Lisp support
 (setq inferior-lisp-program "/usr/bin/clisp")

@@ -16,15 +16,15 @@
           (cpp-name s)))
 
 (defmethod generate-field ((g struct-default-ctor) s f)
-  (prog1
-      (let ((field (make-instance (field-symbol f))))
-        (if (primitive-p field)
+  (let ((field (make-instance (field-symbol f))))
+    (if (primitive-p field)
+        (prog1
             (format "    %s %s( %s )\n"
                     (if (slot-value g 'first-field) ":" ",")
                     (field-name f)
                     (primitive-default-value field))
-          ""))
-    (oset g first-field nil)))
+          (oset g first-field nil))
+      "")))
 
 (defmethod generate-postamble ((g struct-default-ctor) f)
   "{\n}\n")

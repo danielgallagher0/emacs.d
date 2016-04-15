@@ -2,7 +2,8 @@
 ;;; types.  It includes primitive types (and common Qt types).
 
 (defclass data-type ()
-  ((comment :initarg :comment :initform ""))
+  ((comment :initarg :comment :initform "")
+   (db-type :initarg :db-type :initform nil))
   "Base class for data types")
 
 (defclass object-type (data-type)
@@ -79,14 +80,20 @@
 
      ,type))
 
-(define-object string "QString")
-(define-object date "QDate")
-(define-object datetime "QDateTime")
+(defclass qstring (object-type)
+  ((db-length :initarg :db-length :initform nil)))
+
+(defmethod cpp-name ((n qstring))
+  "QString")
+
+(define-object qdate "QDate")
+(define-object qdatetime "QDateTime")
 (define-object qimage "QImage")
 (define-object qsize "QSize")
 (define-object qsizef "QSizeF")
 (define-object qvector2d "QVector2D")
 (define-object qvector3d "QVector3D")
+(define-object qvariant-list "QVariantList")
 
 (defclass qlist (object-type)
   ((value-type :initarg :of)))

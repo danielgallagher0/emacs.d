@@ -33,7 +33,7 @@
   (format "prefix + \"%s: \" + QString( QTest::toString( %s ) ) + \"\\n\"" f-name tmpl))
 
 (defmethod field-difference ((f user-type) f-name tmpl)
-  (format "Diff( t1.%s, t2.%s, %s.%s, prefix + \"%s.\" ) + QString( \"\\n\"" f-name f-name tmpl f-name f-name))
+  (format "Diff( t1.%s, t2.%s, %s, prefix + \"%s.\" ) + QString( \"\\n\" )" f-name f-name tmpl f-name))
 
 (defmethod generate-field ((g struct-diff-generator) s f)
   (let ((field (make-instance (field-symbol f)))

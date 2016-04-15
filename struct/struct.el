@@ -8,6 +8,9 @@
      (defclass ,type (user-type)
        ())
 
+     (defmethod lisp-name ((obj ,type))
+       (symbol-name ,type))
+
      (defmethod cpp-name ((obj ,type))
        (format "s%s" (pascal-case (symbol-name ,type))))
 
