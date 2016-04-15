@@ -19,3 +19,13 @@
                     (apply #'make-instance structure-type)
                   (make-instance structure-type))))
     (generate-code generator struct)))
+
+(defun enum-fn (generator-type enum-type)
+  (interactive "xGenerator type: \nxEnum type: ")
+  (let ((generator (if (listp generator-type)
+                       (apply #'make-instance generator-type)
+                     (make-instance generator-type)))
+        (enum (if (listp enum-type)
+                  (apply #'make-instance enum-type)
+                  (make-instance enum-type))))
+    (generate-enum-code generator enum)))

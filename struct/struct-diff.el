@@ -1,4 +1,4 @@
-;;; This file defines a generator for creating structure difference
+xb;;; This file defines a generator for creating structure difference
 ;;; functions for test comparisons.
 
 (defclass struct-diff-generator (generator)

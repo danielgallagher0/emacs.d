@@ -70,6 +70,28 @@
 (define-cpp-primitive void* "nullptr")
 (define-cpp-primitive qreadwritelock* "nullptr")
 
+(defmacro define-cpp-typedef (type def)
+  `(progn
+     (defclass ,type (primitive-type)
+       ())
+
+     (defmethod cpp-name ((n ,type))
+       ,(concat (symbol-name type) "_t"))
+
+     (defmethod primitive-default-value ((n ,type))
+       ,def)
+
+     ',type))
+
+(define-cpp-typedef uint8 "0")
+(define-cpp-typedef int8 "0")
+(define-cpp-typedef uint16 "0")
+(define-cpp-typedef int16 "0")
+(define-cpp-typedef uint32 "0")
+(define-cpp-typedef int32 "0")
+(define-cpp-typedef uint64 "0")
+(define-cpp-typedef int64 "0")
+
 (defmacro define-object (type class)
   `(progn
      (defclass ,type (object-type)
@@ -131,3 +153,10 @@
 
 (defmethod primitive-default-value ((n qimage-format))
   "QImage::Format_Invalid")
+
+(defclass std-vector (object-type)
+  ((value-type :initarg :of)))
+
+(defmethod cpp-name ((n std-vector))
+  (let ((value-class (make-instance-from-slot (slot-value n 'value-type))))
+    (format "std::vector<%s>" (cpp-name value-class))))

@@ -432,3 +432,74 @@ private slots:
     }" member parameter member parameter notify member))))
     (end-of-paragraph-text)
     (next-line 2)))
+
+(defun trimmed (str)
+  (replace-regexp-in-string "^\\W*\\|\\W*$" "" str))
+
+(defun all-but-last-impl (acc lst)
+  (if (= 1 (length lst))
+      (reverse acc)
+    (all-but-last-impl (cons (car lst) acc) (cdr lst))))
+
+(defun all-but-last (lst)
+  (all-but-last-impl '() lst))
+
+(defun cpp-parse-parameter (param)
+  (let ((declaration-only (trimmed (replace-regexp-in-string "const" "" (car (split-string param "="))))))
+    (let ((words (split-string declaration-only)))
+      (if (> (length words) 1)
+          (let ((name (car (last words)))
+                (type (reduce #'concat (all-but-last words))))
+            (cons name type))
+        (if (string= (car words) "void")
+            '()
+          (cons "" (reduce #'concat words)))))))
+
+(defun cpp-parse-parameter-list (params)
+  (mapcar #'cpp-parse-parameter (split-string params ",")))
+
+(defun cpp-parameters ()
+  (save-excursion
+    (let ((start (search-forward "(")))
+      (search-forward-regexp "{\\|;")
+      (let ((end (search-backward ")")))
+        (cpp-parse-parameter-list (buffer-substring-no-properties start end))))))
+
+(defun cpp-proxy-call (proxy)
+  (interactive "sProxy variable: ")
+  (search-forward "(")
+  (forward-word -1)
+  (let ((fn (word-at-point))
+        (params (remove-if-not #'car (cpp-parameters))))
+    (search-forward "{")
+    (insert (if params
+                (format "\n%s->%s( %s );\n" proxy fn
+                        (reduce #'(lambda (acc n) (concat acc ", " n))
+                                (mapcar #'car params)))
+              (format "\n%s->%s();\n" proxy fn))))
+  (previous-line)
+  (c-indent-line)
+  (next-line))
+
+(defun cpp-record-call-impl (recorder module)
+  (let ((params (remove-if #'(lambda (n) (or (string= (car n) "failed")
+                                             (string= (car n) "succeeded")
+                                             (string= (car n) "success")))
+                           (remove-if-not #'car (cpp-parameters)))))
+    (search-forward "{")
+    (insert "\n")
+    (if params
+        (progn
+          (insert "QVariantMap payload;\n")
+          (mapcar #'(lambda (p) (insert (format "payload[ \"%s\" ] = %s;\n" (car p) (car p)))) params)
+          (insert (format "%sRecord( cEvent( %s, __func__, payload ) );\n" recorder module)))
+      (insert (format "%sRecord( cEvent( %s, __func__ ) );\n" recorder module))))
+  (c-indent-defun))
+
+(defun cpp-record-call-ptr (recorder module)
+  (interactive "sRecorder variable: \nsModule string: ")
+  (cpp-record-call-impl (concat recorder "->") module))
+
+(defun cpp-record-call (recorder module)
+  (interactive "sRecorder variable: \nsModule string: ")
+  (cpp-record-call-impl (concat recorder ".") module))
