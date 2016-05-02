@@ -160,3 +160,23 @@
 (defmethod cpp-name ((n std-vector))
   (let ((value-class (make-instance-from-slot (slot-value n 'value-type))))
     (format "std::vector<%s>" (cpp-name value-class))))
+
+(defclass c-array (object-type)
+  ((value-type :initarg :of)
+   (size :initarg :size)))
+
+(defmethod cpp-name ((n c-array))
+  (format "%s[ %s ]"
+          (cpp-name (make-instance (slot-value n 'value-type)))
+          (slot-value n 'size)))
+
+(define-object anon-union "uniontype")
+
+(defclass std-array (object-type)
+  ((value-type :initarg :of)
+   (size :initarg :size)))
+
+(defmethod cpp-name ((n std-array))
+  (format "std::array<%s, %s>"
+          (cpp-name (make-instance (slot-value n 'value-type)))
+          (slot-value n 'size)))

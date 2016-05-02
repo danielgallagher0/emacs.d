@@ -28,6 +28,12 @@
 (defmethod field-to-variant ((f std-vector) name)
   (format "ToVariantList( %s )" name))
 
+(defmethod field-to-variant ((f c-array) name)
+  (format "ToVariantList( %s )" name))
+
+(defmethod field-to-variant ((f std-array) name)
+  (format "ToVariantList( %s )" name))
+
 (defmethod generate-field ((g struct-to-variant-map) s f)
   (let ((name (field-name f))
         (field (make-instance (field-symbol f))))

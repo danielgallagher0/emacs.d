@@ -153,6 +153,8 @@
 (autoload 'struct-fn "struct/all-structs" "Code generator for POD structures and helper functions" t)
 (autoload 'enum-fn "struct/all-structs" "Code generator for enums and helper functions" t)
 (autoload 'align-switch "code-editing" "Align a simple switch case with single-line cases" t)
+(autoload 'cpp-recorded-proxy-from-signature "code-editing" "Convert a C++ signature to an implementation that records the call and forwards it to a real object")
+(autoload 'cpp-recorded-and-forwarded-signal-from-signature "code-editing" "Convert a C++ signature to an implementation that records the call and re-emits a signal")
 (load "banner")
 (load "utilities")
 

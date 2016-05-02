@@ -2,6 +2,7 @@
 (load "struct/types")
 (load "struct/struct")
 (load "struct/enum")
+(load "struct/enum-class-to-string")
 (load "struct/enum-declaration")
 (load "struct/enum-to-string")
 (load "struct/enum-test-to-string")
@@ -10,6 +11,7 @@
 (load "struct/struct-field-ctor")
 (load "struct/struct-equality")
 (load "struct/struct-diff")
+(load "struct/struct-to-variant-map")
 
 (defun struct-fn (generator-type structure-type)
   (interactive "xGenerator type: \nxStructure type: ")
