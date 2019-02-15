@@ -5,55 +5,27 @@
  ;; If there is more than one, they won't work right.
  '(backup-directory-alist (quote (("." . "/home/synthesis/.backup"))))
  '(c-basic-offset 4)
+ '(clang-format-executable "clang-format-3.8")
  '(indent-tabs-mode nil)
  '(initial-buffer-choice t)
- '(safe-local-variable-values (quote ((todo-categories "Calorie" "Todo" "CalorieKeeper"))))
+ '(safe-local-variable-values
+   (quote
+    ((todo-categories "Calorie" "Todo" "CalorieKeeper"))))
  '(speedbar-directory-unshown-regexp "^\\(CVS\\|RCS\\|SCCS\\|.deps\\)\\'")
- '(speedbar-frame-parameters (quote ((minibuffer) (width . 20) (border-width . 0) (menu-bar-lines . 0) (toolbar-lines . 0) (unsplittable . t) (set-background-color "black"))))
- '(speedbar-supported-extension-expressions (quote (".[ch]\\(\\+\\+\\|pp\\|c\\|h\\|xx\\)?" ".tex\\(i\\(nfo\\)?\\)?" ".el" ".emacs" ".l" ".lsp" ".p" ".java" ".f\\(90\\|77\\|or\\)?" ".ad*" ".p[lm]" ".tcl" ".m" ".scm" ".pm" ".py" ".g" ".s?html" "[Mm]akefile\\(\\.in\\|am\\)?" "configure.ac" ".ml*" ".tig" ".\\(ll\\|yy\\)")))
+ '(speedbar-frame-parameters
+   (quote
+    ((minibuffer)
+     (width . 20)
+     (border-width . 0)
+     (menu-bar-lines . 0)
+     (toolbar-lines . 0)
+     (unsplittable . t)
+     (set-background-color "black"))))
+ '(speedbar-supported-extension-expressions
+   (quote
+    (".[ch]\\(\\+\\+\\|pp\\|c\\|h\\|xx\\)?" ".tex\\(i\\(nfo\\)?\\)?" ".el" ".emacs" ".l" ".lsp" ".p" ".java" ".f\\(90\\|77\\|or\\)?" ".ad*" ".p[lm]" ".tcl" ".m" ".scm" ".pm" ".py" ".g" ".s?html" "[Mm]akefile\\(\\.in\\|am\\)?" "configure.ac" ".ml*" ".tig" ".\\(ll\\|yy\\)")))
  '(tab-width 4)
  '(vc-make-backup-files t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "outline" :family "Consolas"))))
- '(background "blue")
- '(cursor ((t (:background "#8a8a8a"))))
- '(font-lock-builtin-face ((((class color) (background dark)) (:foreground "Turquoise"))))
- '(font-lock-comment-face ((t (:background "#202020" :foreground "#AAAAAA"))))
- '(font-lock-constant-face ((((class color) (background dark)) (:bold t :foreground "DarkOrchid"))))
- '(font-lock-doc-face ((t (:inherit font-lock-comment-face :foreground "#88FF88"))))
- '(font-lock-doc-string-face ((t (:foreground "green2"))))
- '(font-lock-function-name-face ((t (:foreground "SkyBlue"))))
- '(font-lock-keyword-face ((t (:bold t :foreground "CornflowerBlue"))))
- '(font-lock-preprocessor-face ((t (:italic nil :foreground "CornFlowerBlue"))))
- '(font-lock-reference-face ((t (:foreground "DodgerBlue"))))
- '(font-lock-string-face ((t (:foreground "LimeGreen"))))
- '(font-lock-type-face ((t (:foreground "#9290ff"))))
- '(font-lock-variable-name-face ((t (:foreground "PaleGreen"))))
- '(font-lock-warning-face ((((class color) (background dark)) (:foreground "yellow" :background "red"))))
- '(highlight ((t (:background "CornflowerBlue"))))
- '(list-mode-item-selected ((t (:background "gold"))))
- '(makefile-space-face ((t (:background "wheat"))) t)
- '(mode-line ((t (:background "Navy" :foreground "yellow" :width condensed :family "sans"))))
- '(paren-match ((t (:background "darkseagreen4"))))
- '(region ((t (:background "DarkSlateBlue"))))
- '(show-paren-match ((t (:foreground "black" :background "wheat"))))
- '(show-paren-match-face ((t (:foreground "black" :background "wheat"))) t)
- '(show-paren-mismatch ((((class color)) (:foreground "white" :background "red"))))
- '(show-paren-mismatch-face ((((class color)) (:foreground "white" :background "red"))) t)
- '(speedbar-button-face ((((class color) (background dark)) (:foreground "green4"))))
- '(speedbar-directory-face ((((class color) (background dark)) (:foreground "khaki"))))
- '(speedbar-file-face ((((class color) (background dark)) (:foreground "cyan"))))
- '(speedbar-tag-face ((((class color) (background dark)) (:foreground "Springgreen"))))
- '(vhdl-speedbar-architecture-selected-face ((((class color) (background dark)) (:underline t :foreground "Blue"))))
- '(vhdl-speedbar-entity-face ((((class color) (background dark)) (:foreground "darkGreen"))))
- '(vhdl-speedbar-entity-selected-face ((((class color) (background dark)) (:underline t :foreground "darkGreen"))))
- '(vhdl-speedbar-package-face ((((class color) (background dark)) (:foreground "black"))))
- '(vhdl-speedbar-package-selected-face ((((class color) (background dark)) (:underline t :foreground "black"))))
- '(widget-field ((((class grayscale color) (background light)) (:background "DarkBlue")))))
 
 ; Generic Emacs configuration
 (require 'cl)
@@ -68,11 +40,21 @@
   (setq initial-frame-alist '((top . 0) (left . 0) (width . 267) (height . 67))))
  ((string= (system-name) "DGALLAGHER-PC")
   (setq initial-frame-alist '((top . 0) (left . 0) (width . 267) (height . 78))))
+ ((string= (system-name) "ubuntu")
+  (setq compile-command "bazel-beep test ..."))
  ((string= (system-name) "tmlsdev-laptop")
   (setq initial-frame-alist '((top . 0) (left . 0) (width . 267) (height . 80)))
   (setq compile-command "make -k -j 32")
-  (set-face-attribute 'default nil :foundry "unknown" :family "Ubuntu Mono" :height 220)))
+  (set-face-attribute 'default nil :foundry "unknown" :family "Ubuntu Mono" :height 120)))
 (toggle-uniquify-buffer-names)
+
+(defun font-work ()
+  (interactive)
+  (set-face-attribute 'default nil :foundry "unknown" :family "Ubuntu Mono" :height 100))
+
+(defun font-standalone ()
+  (interactive)
+  (set-face-attribute 'default nil :foundry "unknown" :family "Ubuntu Mono" :height 150))
 
 ; Package management
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -111,7 +93,7 @@
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 
 ; Set up autoloads and keys
-(add-to-list 'load-path (concat (getenv "HOME") "/.emacs.d"))
+(add-to-list 'load-path (concat (getenv "HOME") "/.emacs.d/lisp"))
 
 (autoload 'open-header-with-source-buffer "open-header-with-source")
 (autoload 'open-header-with-source-file "open-header-with-source")
@@ -212,12 +194,24 @@
   (local-set-key "\C-cm" 'automate-add-method)
   (local-set-key "\C-cr" 'open-corresponding-file)
   (setq show-trailing-whitespace t)
+  (add-to-list 'c-offsets-alist '(innamespace . -))
+  (add-to-list 'c-offsets-alist '(access-label . -1))
+  (setq c-basic-offset 2)
   (toggle-truncate-lines t))
 
 (add-hook 'c-mode-hook '(lambda () (c/c++-mode)))
 (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
 
 (add-hook 'c++-mode-hook '(lambda () (c/c++-mode)))
+
+(defun format-this-buffer ()
+  (when (eq major-mode 'c++-mode)
+    (clang-format-buffer))
+  (when (eq major-mode 'python-mode)
+    (unless (equal "BUILD" (file-name-base (buffer-file-name)))
+      (py-autopep8))))
+
+(add-hook 'before-save-hook #'format-this-buffer)
 
 (add-hook 'find-file-hook
       '(lambda ()
@@ -258,6 +252,8 @@
                             auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.go" . go-mode)
                             auto-mode-alist))
+(setq auto-mode-alist (cons '("BUILD" . python-mode)
+                            auto-mode-alist))
 
 ;; Fake UUID generator
 (random t)
@@ -286,3 +282,10 @@ WARNING: this is a simple implementation. The chance of generating the same UUID
 
 ; Custom setup for TMLS development
 (setenv "TMLS_DEBUG" "1")
+(load-theme 'tango-dark)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
