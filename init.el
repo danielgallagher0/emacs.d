@@ -86,9 +86,38 @@
                           (if last-year-idx
                               (replace-string (format "%d" previous-year) (format "%d-%d" previous-year current-year) nil start-years end-years)
                             (insert (format "%d, " current-year)))))))))))))
+
+(defun qmlfmt-buffer ()
+  (interactive)
+  (let ((line (line-number-at-pos)))
+    (beginning-of-buffer)
+    (call-shell-region
+     (point) (point-max)
+     "qmlfmt"
+     nil
+     t)
+    (if (/= (point) 1)
+        (delete-region (point) (point-max)))
+    (goto-line line)))
+
+(defvar-local never-format nil)
+(defun format-file ()
+  (interactive)
+  (unless never-format
+    (cond
+     ((or (eq major-mode 'c-mode)
+          (eq major-mode 'c++-mode))
+      (clang-format-buffer))
+     ((eq major-mode 'python-mode)
+      (delete-trailing-whitespace)
+      (yapfify-buffer))
+     ((eq major-mode 'qml-mode)
+      (delete-trailing-whitespace)
+      (qmlfmt-buffer)) )))
+
 (add-hook 'before-save-hook #'update-copyright)
 (add-hook 'before-save-hook #'(lambda () (unless (eq major-mode 'makefile-gmake-mode) (untabify 0 (point-max)))))
-(add-hook 'before-save-hook #'delete-trailing-whitespace)
+(add-hook 'before-save-hook #'format-file)
 
 ; Set up autoloads and keys
 (add-to-list 'load-path (concat (getenv "HOME") "/.emacs.d/lisp"))
