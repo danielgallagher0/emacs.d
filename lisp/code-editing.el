@@ -88,21 +88,11 @@ to fit the expected documentation standard."
           (concat before-space (class-for-current-buffer) "::" after-space after-paren))))))
 
 (defun class-for-buffer (original-name)
-  (let* ((basename (let ((slash-index (string-match "/" original-name)))
-                     (if slash-index
-                         (substring original-name (1+ slash-index))
-                       original-name)))
-         (name (if (and (> (length basename) 4)
-                        (string= (substring basename 0 4) "Stub"))
-                   (substring basename 4)
-                 basename))
-         (test (string-match "\\.Test\\." name)))
-    (concat "c" (substring name 0 (string-match "\\." name))
-            (if test "Test" ""))))
+  (apply #'s-concat (mapcar #'upcase-initials (string-split original-name "_"))))
 
 (defun class-for-current-buffer ()
   (interactive)
-  (class-for-buffer (buffer-name (current-buffer))))
+  (class-for-buffer (file-name-base)))
 
 (defun signature-to-definition (n)
   (interactive "p")
