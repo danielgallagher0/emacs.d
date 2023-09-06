@@ -74,7 +74,7 @@
   (interactive)
   (save-excursion
     (beginning-of-buffer)
-    (let ((start-years (search-forward " Copyright (c) " nil t))
+    (let ((start-years (search-forward "Copyright (c) " nil t))
           (current-year (cadddr (cddr (decode-time (current-time))))))
       (if start-years
           (let ((end-years (search-forward-regexp "\\([[:digit:]]\\{4\\}\\(-[[:digit:]]\\{4\\}\\)?, ?\\)+" nil t))
@@ -127,11 +127,7 @@
 (autoload 'insert-test-header "code-editing" "Insert a skeleton test header" t)
 (autoload 'to-display-set-definition "omc")
 (autoload 'insert-enum-value "omc")
-(autoload 'insert-omc-header-copyright "omc" "Insert the Optimedica copyright text for headers at the beginning of the buffer" t)
-(autoload 'insert-omc-source-copyright "omc" "Insert the Optimedica copyright text for source files at the beginning of the buffer" t)
-(autoload 'insert-topcon-copyright "copyright" "Insert the Topcon copyright text at the beginning of the buffer" t)
-(autoload 'insert-lynx-copyright "copyright" "Insert the Lynx copyright text at the beginning of the buffer" t)
-(autoload 'insert-amo-copyright "copyright" "Insert the Abbot copyright text at the beginning of the buffer" t)
+(autoload 'insert-turncare-copyright "copyright" "Insert the TurnCare copyright text at the beginning of the buffer" t)
 (autoload 'fire-and-forget-todo "todo")
 (autoload 'structure-wizard "structure" "Wizard tool to create structure files" t)
 (autoload 'struct-fn "struct/all-structs" "Code generator for POD structures and helper functions" t)

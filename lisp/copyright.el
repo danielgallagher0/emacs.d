@@ -24,30 +24,38 @@
   (let ((funsym (intern (concat "insert-" (join (split-string (symbol-name nickname)) "-") "-copyright"))))
     `(defun ,funsym ()
        (interactive)
-       (if (string/ends-with (buffer-name) ".h")
-           (insert-include-guard))
-       (beginning-of-buffer)
-       (insert (format "/**
+       (let ((copyright-string (format "Copyright (c) %d, %s." (current-year) ,company)))
+         (cond
+          ((or (eq major-mode 'c-mode)
+               (eq major-mode 'c++-mode))
+           (if (string/ends-with (buffer-name) ".h")
+               (insert-include-guard))
+           (beginning-of-buffer)
+           (insert (format "/**
  * \\file
  *
- * Copyright (c) %d, %s.
+ * %s
  * All rights reserved.
  *
  *
  */
 
-" (current-year) ,company))
-       (if (not (string/ends-with (buffer-name) ".h"))
-           (progn
-             (banner-includes)
-             (insert (format "\n#include \"%s.h\"\n" (substring (buffer-name) 0 (position ?. (buffer-name)))))
-             (previous-line 5)))
-       (previous-line 3)
-       (end-of-line)
-       (insert " "))))
+" copyright-string))
+           (if (not (string/ends-with (buffer-name) ".h"))
+               (progn
+                 (banner-includes)
+                 (insert (format "\n#include \"%s.h\"\n" (substring (buffer-name) 0 (position ?. (buffer-name)))))
+                 (previous-line 5)))
+           (previous-line 3)
+           (end-of-line)
+           (insert " "))
+          ((eq major-mode 'python-mode)
+           (beginning-of-buffer)
+           (insert (format "\"\"\"\n\n%s\nAll rights reserved.\n\n\"\"\"\n" copyright-string))
+           (beginning-of-buffer)
+           (forward-char 3)))))))
 
-(defcopyright topcon "Topcon Medical Laser Systems")
-(defcopyright lynx "Lynx Grills Inc")
-(defcopyright amo "Abbott Medical Optics")
+
+(defcopyright turncare "TurnCare Inc")
 (defcopyright self "Daniel Gallagher")
-(defcopyright our "219 Design, LLC")
+
