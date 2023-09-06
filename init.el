@@ -188,9 +188,14 @@
 (global-set-key "\C-xt" 'fire-and-forget-todo)
 (global-set-key "\C-xT" 'todo-show)
 
+(require 'lsp-mode)
+(require 'lsp-jedi)
+
 ; Python programming
 (add-hook 'python-mode-hook
       '(lambda ()
+         (lsp-mode)
+         (set-fill-column 100)
          (local-set-key "\C-c\C-w" 'kill-region)))
 
 ; C or C++ programming
@@ -217,6 +222,7 @@
   (local-set-key "\C-cm" 'automate-add-method)
   (local-set-key "\C-cr" 'open-corresponding-file)
   (setq show-trailing-whitespace t)
+  (set-fill-column 100)
   (toggle-truncate-lines t))
 
 (add-hook 'c-mode-hook '(lambda () (c/c++-mode)))
