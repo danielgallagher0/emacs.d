@@ -113,6 +113,10 @@ to fit the expected documentation standard."
     (search-forward ")")
     (end-of-line)
     (delete-char -1)
+    (if (string= (current-word) "override")
+        (progn
+          (kill-word -1)
+          (delete-char -1)))
     (insert "\n{\n}\n")
     (next-line)))
 
