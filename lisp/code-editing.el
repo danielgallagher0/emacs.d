@@ -191,7 +191,7 @@ to fit the expected documentation standard."
     (insert "\n#define ")
     (insert include-guard)
     (insert "\n")
-    (end-of-buffer)
+    (goto-char (point-max))
     (insert "\n#endif\n")))
 
 (defun greatest-equals-column ()
@@ -563,7 +563,7 @@ private slots:
         (cpp-proxy-call proxied-variable)
         (beginning-of-defun)
         (cpp-record-call recorder module)
-        (end-of-buffer)
+        (goto-char (point-max))
         (widen)))))
 
 (defun cpp-standard-recorded-proxy-from-signature (n)
@@ -599,7 +599,7 @@ private slots:
             (insert "\n")
             (beginning-of-defun)
             (cpp-record-call recorder module (concat "\"" (substring fn-name 2) "\"")))
-          (end-of-buffer)
+          (goto-char (point-max))
           (widen))))))
 
 (defun cpp-standard-recorded-and-forwarded-signal-from-signature (n)

@@ -14,21 +14,19 @@
  '(c-basic-offset 4)
  '(indent-tabs-mode nil)
  '(initial-buffer-choice t)
- '(safe-local-variable-values
-   (quote
-    ((todo-categories "Calorie" "Todo" "CalorieKeeper"))))
+ '(package-selected-packages
+   '(clang-format qt-pro-mode feature-mode dockerfile-mode jedi company-jedi lsp-ui lsp-docker company-qml lsp-jedi qml-mode yapfify web w3m svg-clock php-mode code-headers cl-lib cl-format c-eldoc auto-complete-clang auto-complete android-mode))
+ '(safe-local-variable-values '((todo-categories "Todo")))
  '(speedbar-directory-unshown-regexp "^\\(CVS\\|RCS\\|SCCS\\|.deps\\)\\'")
  '(speedbar-frame-parameters
-   (quote
-    ((minibuffer)
+   '((minibuffer)
      (width . 20)
      (border-width . 0)
      (menu-bar-lines . 0)
      (toolbar-lines . 0)
-     (unsplittable . t))))
+     (unsplittable . t)))
  '(speedbar-supported-extension-expressions
-   (quote
-    (".[ch]\\(\\+\\+\\|pp\\|c\\|h\\|xx\\)?" ".tex\\(i\\(nfo\\)?\\)?" ".el" ".emacs" ".l" ".lsp" ".p" ".java" ".f\\(90\\|77\\|or\\)?" ".ad*" ".p[lm]" ".tcl" ".m" ".scm" ".pm" ".py" ".g" ".s?html" "[Mm]akefile\\(\\.in\\|am\\)?" "configure.ac" ".ml*" ".tig" ".\\(ll\\|yy\\)")))
+   '(".[ch]\\(\\+\\+\\|pp\\|c\\|h\\|xx\\)?" ".tex\\(i\\(nfo\\)?\\)?" ".el" ".emacs" ".l" ".lsp" ".p" ".java" ".f\\(90\\|77\\|or\\)?" ".ad*" ".p[lm]" ".tcl" ".m" ".scm" ".pm" ".py" ".g" ".s?html" "[Mm]akefile\\(\\.in\\|am\\)?" "configure.ac" ".ml*" ".tig" ".\\(ll\\|yy\\)"))
  '(tab-width 4)
  '(vc-make-backup-files t))
 (custom-set-faces
@@ -55,12 +53,10 @@
   (setq initial-frame-alist '((top . 0) (left . 0) (width . 267) (height . 80)))
   (setq compile-command "make -k -j 32")
   (set-face-attribute 'default nil :foundry "unknown" :family "Ubuntu Mono" :height 220)))
-(toggle-uniquify-buffer-names)
 
 ; Package management
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+                         ("melpa" . "https://melpa.org/packages/")))
 
 ; Enable "confusing" features
 (defun no-op ())
